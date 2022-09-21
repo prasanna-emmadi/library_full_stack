@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     // if he only refreshes the webpage.
     if (localStorageToken) {
       const checkToken = async () => {
-        const resp = await refreshToken(getAuthHeader(localStorageToken));
+        const resp = await refreshToken(localStorageToken);
         if (resp.status === 401) {
           logout();
         } else {
