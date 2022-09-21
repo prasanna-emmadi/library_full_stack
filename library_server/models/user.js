@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
-  userName: String,
+  username: String,
   password: String,
 });
 //              first   String is Name of the collection in database

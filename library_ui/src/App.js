@@ -6,26 +6,26 @@ import HeaderBar from "./components/HeaderBar";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Logout from "./components/Logout";
-import { AuthProvider } from "./contexts/authContext";
+
 import { BookProvider } from "./contexts/bookContext";
+import { useAuthContext } from "./contexts/authContext";
 
 function App() {
+  const { loggedIn } = useAuthContext();
   return (
     <Router>
-      <AuthProvider>
-        <BookProvider>
-          <HeaderBar />
-          <Routes>
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/editbook/:id" element={<BookForm />} />
-            <Route path="/createbook" element={<BookForm />} />
-            <Route path="/book/:id" element={<Book />} />
-            <Route path="/" element={<AllBooks />} />
-          </Routes>
-        </BookProvider>
-      </AuthProvider>
+      <BookProvider>
+        <HeaderBar />
+        <Routes>
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/editbook/:id" element={<BookForm />} />
+          <Route path="/createbook" element={<BookForm />} />
+          <Route path="/book/:id" element={<Book />} />
+          <Route path="/home" element={<AllBooks />} />
+        </Routes>
+      </BookProvider>
     </Router>
   );
 }

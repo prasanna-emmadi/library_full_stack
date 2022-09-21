@@ -6,15 +6,18 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const addUser = async (req, res) => {
+  console.log("addUser");
   const savedUser = req.body;
   const checkUsername = await UserModel.findOne({
-    userName: savedUser.userName,
+    username: savedUser.username,
   });
 
   if (checkUsername === null) {
+    console.log("checkUsername is null");
     const saltRounds = 10;
     const passwdhash = await bcrypt.hash(savedUser.password, saltRounds);
     savedUser.password = passwdhash;
+    console.log({ savedUser });
 
     await UserModel.create(savedUser);
     res
@@ -28,26 +31,31 @@ export const addUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-  const { userName, password } = req.body;
+  const { username, password } = req.body;
+  console.log("loginUser");
 
-  if (!userName || !password) {
+  if (!username || !password) {
+    console.log("loginUser missing");
     return res.status(400).send("username or password missing");
   }
   try {
-    const userData = await UserModel.findOne({ userName: userName });
+    const userData = await UserModel.findOne({ username: username });
     const valid = await bcrypt.compare(password, userData.password);
 
     if (valid) {
       const token = jsonwebtoken.sign(
-        { type: "session", username: userName },
+        { type: "session", username: username },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
+      console.log("valid token");
       res.status(200).send({ token });
     } else {
+      console.log("forbidden");
       res.status(401).send("forbidden, wrong password");
     }
   } catch (e) {
+    console.log("wrong auth");
     res.status(400).send("Something went wrong in authentication");
   }
 };
@@ -66,7 +74,7 @@ export const modifyUser = async (req, res) => {
   const update = { ...req.body };
   try {
     const userUpdate = await UserModel.findOneAndUpdate(
-      { userName: req.user.username },
+      { username: req.user.username },
       update
     );
     res.status(200).send("User data was modified successfully");

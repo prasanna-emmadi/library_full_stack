@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useAuthContext } from "./authContext";
 import {
   createBook,
@@ -6,7 +6,7 @@ import {
   getAllBooks,
   getBook,
   editBook,
-} from "./bookApiRequests";
+} from "./api/bookApiRequests";
 
 const BookContext = createContext({});
 
@@ -16,7 +16,8 @@ export const BookProvider = ({ children }) => {
 
   const doGetAllBooks = async () => {
     try {
-      const books = await getAllBooks(token);
+      const response = await getAllBooks(token);
+      const books = response.data;
       setBooks(books);
       return books;
     } catch (e) {
@@ -26,8 +27,8 @@ export const BookProvider = ({ children }) => {
 
   const doGetBook = async (title) => {
     try {
-      const book = await getBook(token, title);
-      return book;
+      const response = await getBook(token, title);
+      return response.data;
     } catch (e) {
       throw e;
     }
@@ -35,8 +36,8 @@ export const BookProvider = ({ children }) => {
 
   const doEditBook = async (bookData) => {
     try {
-      const book = await editBook(token, bookData);
-      return book;
+      const response = await editBook(token, bookData);
+      return response.data;
     } catch (e) {
       throw e;
     }
@@ -44,8 +45,8 @@ export const BookProvider = ({ children }) => {
 
   const doCreateBook = async (bookData) => {
     try {
-      await createBook(token, bookData);
-      return true;
+      const response = await createBook(token, bookData);
+      return response.data;
     } catch (e) {
       throw e;
     }
@@ -53,15 +54,15 @@ export const BookProvider = ({ children }) => {
 
   const doDeleteBook = async (id) => {
     try {
-      const book = await deleteBook(token, id);
+      await deleteBook(token, id);
     } catch (e) {
       throw e;
     }
   };
 
-  useEffect(() => {
-    doGetAllBooks();
-  }, []);
+  //useEffect(() => {
+  //doGetAllBooks();
+  //}, []);
 
   return (
     <BookContext.Provider
