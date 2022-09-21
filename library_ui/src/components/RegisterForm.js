@@ -22,7 +22,8 @@ const RegisterForm = () => {
   const [user, setUser] = useState(emptyUser);
   const navigate = useNavigate();
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     try {
       await register(user.username, user.password);
       setUser(emptyUser);

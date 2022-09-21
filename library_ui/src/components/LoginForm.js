@@ -1,5 +1,5 @@
 import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/authContext";
 
@@ -22,10 +22,6 @@ const LoginForm = () => {
   const [user, setUser] = useState(emptyUser);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("create loginForm");
-  }, []);
-
   //console.log(typeof login);
 
   const onSubmit = async (e) => {
@@ -33,12 +29,12 @@ const LoginForm = () => {
     console.log("onSubmit");
     try {
       await login(user.username, user.password);
-      //navigate("/home");
-      //setUser(emptyUser);
-      //setError(false);
+      navigate("/home");
+      setUser(emptyUser);
+      setError(false);
     } catch (e) {
       console.log("error in login", e);
-      //setError(true);
+      setError(true);
     }
   };
 

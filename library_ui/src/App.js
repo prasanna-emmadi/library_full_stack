@@ -23,7 +23,7 @@ function App() {
           <Route path="/editbook/:id" element={<BookForm />} />
           <Route path="/createbook" element={<BookForm />} />
           <Route path="/book/:id" element={<Book />} />
-          <Route path="/home" element={<AllBooks />} />
+          <Route path="/" element={<AllBooks />} />
         </Routes>
       </BookProvider>
     </Router>
