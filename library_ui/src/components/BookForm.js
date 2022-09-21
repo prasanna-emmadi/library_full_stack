@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  Button,
+  ButtonGroup,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useBookContext } from "../contexts/bookContext";
 
@@ -19,7 +25,7 @@ const InputComponent = ({ book, setBook, type, bookKey }) => {
 
 // based on parameter use the correct approach
 const BookForm = () => {
-  const { createBook, editBook } = useBookContext();
+  const { createBook, editBook, deleteBook } = useBookContext();
   const { id } = useParams();
   const [error, setError] = useState(false);
   const [book, setBook] = useState(emptyBook);
@@ -40,6 +46,26 @@ const BookForm = () => {
     // create
     try {
       await editBook(book);
+      setError(false);
+    } catch (e) {
+      setError(true);
+    }
+  };
+
+  const onSave = async () => {
+    // create
+    try {
+      await editBook(book);
+      setError(false);
+    } catch (e) {
+      setError(true);
+    }
+  };
+
+  const onDelete = async () => {
+    // create
+    try {
+      await deleteBook(book.title);
       setError(false);
     } catch (e) {
       setError(true);
@@ -89,7 +115,11 @@ const BookForm = () => {
           bookKey="author"
         />
       </FormControl>
-      <Button type="submit">Submit</Button>
+      <ButtonGroup gap="4">
+        <Button type="submit">Submit</Button>
+        <Button onClick={onSave}>Save</Button>
+        <Button onClick={onDelete}>Delete</Button>
+      </ButtonGroup>
       {error ? <p>{errorText}</p> : null}
     </form>
   );
