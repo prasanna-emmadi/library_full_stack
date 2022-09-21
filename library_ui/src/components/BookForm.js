@@ -8,26 +8,41 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useBookContext } from "../contexts/bookContext";
+import { useNavigate } from "react-router-dom";
 
-const InputComponent = ({ book, setBook, type, bookKey }) => {
+const InputComponent = ({ book, setBook, type, bookKey, value }) => {
   const onChange = (e) => {
     setBook({ ...book, [bookKey]: e.target.value });
   };
 
-  return <Input onChange={onChange} type={type} />;
+  return <Input onChange={onChange} type={type} value={value} />;
+};
+
+const emptyBook = {
+  title: "",
+  description: "",
+  author: "",
 };
 
 // based on parameter use the correct approach
 const BookForm = (props) => {
   const { createBook, editBook, deleteBook } = useBookContext();
   const [error, setError] = useState(false);
-  const [book, setBook] = useState(props.book);
+  const [book, setBook] = useState(props.book || emptyBook);
+  const navigate = useNavigate();
+
+  console.log({ propsBook: props.book, book });
 
   const doCreateBook = async () => {
     // create
     try {
       await createBook(book);
       setError(false);
+      if (props.onCreateDelete) {
+        props.onCreateDelete();
+      } else {
+        navigate("/");
+      }
     } catch (e) {
       setError(true);
     }
@@ -48,6 +63,7 @@ const BookForm = (props) => {
     try {
       await deleteBook(book.title);
       setError(false);
+      if (props.onCreateDelete) props.onCreateDelete();
     } catch (e) {
       setError(true);
     }

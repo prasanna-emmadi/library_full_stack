@@ -5,6 +5,7 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Logout from "./components/Logout";
 import { BookProvider } from "./contexts/bookContext";
+import BookForm from "./components/BookForm";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/createbook" element={<BookForm />} />
         <Route path="/" element={<AllBooks />} />
       </Routes>
     </BookProvider>

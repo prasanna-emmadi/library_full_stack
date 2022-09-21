@@ -32,6 +32,10 @@ const AllBooks = () => {
     setIndex(index1);
   };
 
+  const onCreateDelete = () => {
+    setIndex(-1);
+  };
+
   console.log("here 1");
 
   if (!books || books.length === 0) {
@@ -53,7 +57,13 @@ const AllBooks = () => {
           );
         })}
       </List>
-      {showBookForm ? <BookForm book={books[index]} index={index} /> : null}
+      {showBookForm ? (
+        <BookForm
+          book={books[index]}
+          index={index}
+          onCreateDelete={onCreateDelete}
+        />
+      ) : null}
     </HStack>
   );
 };

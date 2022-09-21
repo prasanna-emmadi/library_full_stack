@@ -42,9 +42,9 @@ export const BookProvider = ({ children }) => {
         }
         return bookData;
       });
+      console.log({ updatedBooks });
       setBooks(updatedBooks);
-      // update local copy
-      return response.data;
+      return response;
     } catch (e) {
       throw e;
     }
@@ -54,7 +54,8 @@ export const BookProvider = ({ children }) => {
     try {
       const response = await createBook(token, bookData);
       // add to the existing book
-      setBooks([...books, response.data]);
+      console.log({ response });
+      setBooks([...books, response]);
       return response.data;
     } catch (e) {
       throw e;
