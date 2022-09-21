@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import UserRouter from "./router/UserRouter.js";
 import BookRouter from "./router/BookRouter.js";
+import CredentialRouter from "./router/CredentialRouter.js";
 
 const PORT = 3001;
 
@@ -35,6 +36,7 @@ await connectMongoose();
 
 app.use("/user", UserRouter);
 app.use("/book", BookRouter);
+app.use("/", CredentialRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

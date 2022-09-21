@@ -9,6 +9,14 @@ const options = {
   secretOrKey: process.env.JWT_SECRET || "",
 };
 
+const cookieExtractor = (req) => {
+  var token = null;
+  if (req && req.cookies) {
+    token = req.cookies["jwt"];
+  }
+  return token;
+};
+
 passport.use(
   new Strategy(options, async (payload, done) => {
     const { type, username } = payload;

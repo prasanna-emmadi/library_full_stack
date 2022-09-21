@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getAuthHeader } from "./authHeader";
 
-const URL = "http://localhost:3001/user";
+const URL = "http://localhost:3001";
 
 export const tryRegister = async (username, password) => {
   try {
@@ -43,7 +43,7 @@ export const tryLogout = async (token) => {
 export const refreshToken = async (token) => {
   try {
     const authHeader = getAuthHeader(token);
-    return await axios.get(URL + "/refreshtoken", authHeader);
+    return await axios.get(URL + "/user/refreshtoken", authHeader);
   } catch (e) {
     throw new Error("Error in refresh token");
   }

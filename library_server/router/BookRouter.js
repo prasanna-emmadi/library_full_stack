@@ -5,13 +5,15 @@ import {
   createBook,
   deleteBook,
 } from "../controllers/bookController.js";
-import auth from "../middleware/passportMiddleware.js";
+import { jwtVerify } from "../middleware/middleware.js";
 
 const router = express.Router();
 
-router.get("/", auth, getBooks);
-router.post("/", auth, createBook);
-router.put("/", auth, editBook);
-router.delete("/:title", auth, deleteBook);
+router.use("/", jwtVerify);
+
+router.get("/", getBooks);
+router.post("/", createBook);
+router.put("/", editBook);
+router.delete("/:title", deleteBook);
 
 export default router;

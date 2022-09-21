@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState("");
 
-  /*useEffect(() => {
+  useEffect(() => {
     const localStorageToken = localStorage.getItem(TOKEN_IDENTIFIER);
     console.log({ localStorageToken });
     // perform a refresh token request to backend here,
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       checkToken();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);*/
+  }, []);
 
   const register = async (username, password) => {
     try {
