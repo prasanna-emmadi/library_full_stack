@@ -1,11 +1,18 @@
 import { List, ListItem } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../contexts/authContext";
 import { useBookContext } from "../contexts/bookContext";
 
 const AllBooks = () => {
   const { loggedIn } = useAuthContext();
-  const { books } = useBookContext();
+  const { books, getAllBooks } = useBookContext();
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAllBooks();
+    }
+  }, [loggedIn, getAllBooks]);
 
   if (!loggedIn) {
     return <p>You are not loggedIn. Please login.</p>;
@@ -24,8 +31,8 @@ const AllBooks = () => {
       {books.map((book, index) => {
         const to = "/book/" + index;
         return (
-          <ListItem>
-            <Link to={to}>book.name</Link>
+          <ListItem key={index}>
+            <Link to={to}>{book.title}</Link>
           </ListItem>
         );
       })}

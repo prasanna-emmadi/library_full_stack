@@ -18,13 +18,15 @@ export const AuthProvider = ({ children }) => {
     // if he only refreshes the webpage.
     if (localStorageToken) {
       const checkToken = async () => {
-        const resp = await refreshToken(localStorageToken);
-        if (resp.status === 401) {
+        const response = await refreshToken(localStorageToken);
+
+        if (response.status === 401) {
           logout();
         } else {
+          const token = response.data.token;
           setLoggedIn(true);
-          setToken(resp.token);
-          localStorage.setItem("MYLIB_TOKEN", resp.token);
+          setToken(token);
+          localStorage.setItem(TOKEN_IDENTIFIER, token);
         }
       };
       checkToken();

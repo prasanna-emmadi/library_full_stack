@@ -16,8 +16,7 @@ export const BookProvider = ({ children }) => {
 
   const doGetAllBooks = async () => {
     try {
-      const response = await getAllBooks(token);
-      const books = response.data;
+      const books = await getAllBooks(token);
       setBooks(books);
       return books;
     } catch (e) {

@@ -49,10 +49,7 @@ export const createBook = async (req, res) => {
   try {
     const username = req.user.username;
     const user = await UserModel.findOne({ username: username });
-    console.log({ username, user });
     if (user) {
-      // check the bookDetails
-      // title
       const { title, author, description } = req.body;
       if (!title || !author || !description) {
         res
@@ -67,9 +64,7 @@ export const createBook = async (req, res) => {
         userId: user._id,
       };
       const newBook = new BookModel(bookDetails);
-      console.log("saving book 1", bookDetails);
       const savedBook = await newBook.save();
-      console.log("saving book 2");
       res.json(savedBook);
     } else {
       res.status(404).json({ message: "user not found" });
