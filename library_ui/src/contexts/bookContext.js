@@ -37,6 +37,7 @@ export const BookProvider = ({ children }) => {
   const doEditBook = async (bookData) => {
     try {
       const response = await editBook(token, bookData);
+      // update local copy
       return response.data;
     } catch (e) {
       throw e;
@@ -46,23 +47,23 @@ export const BookProvider = ({ children }) => {
   const doCreateBook = async (bookData) => {
     try {
       const response = await createBook(token, bookData);
+      // add to the existing book
+      setBooks([...books, response.data]);
       return response.data;
     } catch (e) {
       throw e;
     }
   };
 
-  const doDeleteBook = async (id) => {
+  const doDeleteBook = async (title) => {
     try {
-      await deleteBook(token, id);
+      await deleteBook(token, title);
+      const newBooks = books.filter((book) => book.title !== title);
+      setBooks(newBooks);
     } catch (e) {
       throw e;
     }
   };
-
-  //useEffect(() => {
-  //doGetAllBooks();
-  //}, []);
 
   return (
     <BookContext.Provider

@@ -6,9 +6,9 @@ const BookSchema = new mongoose.Schema({
     ref: "users",
   },
   title: String,
-  author: Number,
+  author: String,
   description: String,
 });
 //  first String is Name of the collection in database
-const BookModel = mongoose.model("Product", BookSchema);
+const BookModel = mongoose.model("book", BookSchema);
 export default BookModel;

@@ -46,7 +46,8 @@ const BookForm = () => {
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     // update
     if (isEditMode) {
       await doEditBook();

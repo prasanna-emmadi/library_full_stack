@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getAuthHeader } from "./authHeader";
-const URL = "http://localhost:3001/book/";
+const URL = "http://localhost:3001/book";
 
 export const getAllBooks = async (token) => {
   try {
