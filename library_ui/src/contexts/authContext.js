@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const localStorageToken = localStorage.getItem(TOKEN_IDENTIFIER);
-    console.log({ localStorageToken });
     // perform a refresh token request to backend here,
     // as we cannot know for sure if this token is valid or not at this point
     // This is intended for init-load, to not force the user to relogin
@@ -49,12 +48,10 @@ export const AuthProvider = ({ children }) => {
       const token = response.data.token;
 
       if (token) {
-        console.log("token received");
         localStorage.setItem(TOKEN_IDENTIFIER, token);
         setToken(token);
         setLoggedIn(true);
       } else {
-        console.log("token is null");
         throw new Error("Login failed");
       }
     } catch (e) {
@@ -94,7 +91,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
-  //console.log("authcontext", context);
   if (!context) {
     throw new Error("Auth context not created");
   }

@@ -12,7 +12,6 @@ export const tryRegister = async (username, password) => {
 };
 
 export const tryLogin = async (username, password) => {
-  console.log("login in userApiRequest");
   try {
     const response = await axios.post(
       URL + "/login",
@@ -24,7 +23,6 @@ export const tryLogin = async (username, password) => {
         },
       }
     );
-    console.log({ loginApiResponse: response });
     return response;
   } catch (e) {
     console.log("error in tryLogin", e);

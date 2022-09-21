@@ -22,11 +22,8 @@ const LoginForm = () => {
   const [user, setUser] = useState(emptyUser);
   const navigate = useNavigate();
 
-  //console.log(typeof login);
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("onSubmit");
     try {
       await login(user.username, user.password);
       navigate("/home");

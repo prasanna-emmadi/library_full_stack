@@ -13,11 +13,9 @@ export const addUser = async (req, res) => {
   });
 
   if (checkUsername === null) {
-    console.log("checkUsername is null");
     const saltRounds = 10;
     const passwdhash = await bcrypt.hash(savedUser.password, saltRounds);
     savedUser.password = passwdhash;
-    console.log({ savedUser });
 
     await UserModel.create(savedUser);
     res
@@ -32,10 +30,8 @@ export const addUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
-  console.log("loginUser");
 
   if (!username || !password) {
-    console.log("loginUser missing");
     return res.status(400).send("username or password missing");
   }
   try {
@@ -48,14 +44,11 @@ export const loginUser = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
-      console.log("valid token");
       res.status(200).send({ token });
     } else {
-      console.log("forbidden");
       res.status(401).send("forbidden, wrong password");
     }
   } catch (e) {
-    console.log("wrong auth");
     res.status(400).send("Something went wrong in authentication");
   }
 };
