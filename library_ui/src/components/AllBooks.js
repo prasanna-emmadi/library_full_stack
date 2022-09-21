@@ -1,8 +1,17 @@
-import { List, ListItem } from "@chakra-ui/react";
+import { Box, Heading, List, ListItem, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../contexts/authContext";
 import { useBookContext } from "../contexts/bookContext";
+
+const Book = ({ book }) => {
+  return (
+    <Box p={5} shadow="md" borderWidth="1px">
+      <Heading fontSize="xl">{book.title}</Heading>
+      <Text mt={4}>{book.author}</Text>
+    </Box>
+  );
+};
 
 const AllBooks = () => {
   const { loggedIn } = useAuthContext();
@@ -32,7 +41,9 @@ const AllBooks = () => {
         const to = "/book/" + index;
         return (
           <ListItem key={index}>
-            <Link to={to}>{book.title}</Link>
+            <Link to={to}>
+              <Book book={book} />
+            </Link>
           </ListItem>
         );
       })}
