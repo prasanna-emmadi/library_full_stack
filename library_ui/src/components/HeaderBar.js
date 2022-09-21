@@ -1,7 +1,19 @@
-import { Box, Flex, HStack, Spacer, Text, Button } from "@chakra-ui/react";
+import { Box, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../contexts/authContext";
 
 const HeaderBar = () => {
+  const { loggedIn } = useAuthContext();
+
+  let navItems = NAV_ITEMS;
+  if (loggedIn) {
+    const createBook = {
+      label: "CreateBook",
+      href: "/createbook",
+    };
+    navItems = [...NAV_ITEMS, createBook];
+  }
+
   return (
     <Box>
       <Flex
@@ -20,8 +32,8 @@ const HeaderBar = () => {
         </Box>
         <Spacer />
         <HStack spacing={4}>
-          {NAV_ITEMS.map((item, idx) => (
-            <Box key={idx}>
+          {navItems.map((item, index) => (
+            <Box key={index}>
               <Link to={item.href}>{item.label}</Link>
             </Box>
           ))}

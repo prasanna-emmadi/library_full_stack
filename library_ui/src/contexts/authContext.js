@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getAuthHeader } from "./api/authHeader";
 import {
   refreshToken,
   tryRegister,
@@ -26,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         if (resp.status === 401) {
           logout();
         } else {
+          setLoggedIn(true);
           setToken(resp.token);
           localStorage.setItem("MYLIB_TOKEN", resp.token);
         }

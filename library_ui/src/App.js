@@ -20,10 +20,14 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/editbook/:id" element={<BookForm />} />
-          <Route path="/createbook" element={<BookForm />} />
-          <Route path="/book/:id" element={<Book />} />
-          <Route path="/" element={<AllBooks />} />
+          {loggedIn ? (
+            <Route path="/editbook/:id" element={<BookForm />} />
+          ) : null}
+          {loggedIn ? (
+            <Route path="/createbook" element={<BookForm />} />
+          ) : null}
+          {loggedIn ? <Route path="/book/:id" element={<Book />} /> : null}
+          {loggedIn ? <Route path="/" element={<AllBooks />} /> : null}
         </Routes>
       </BookProvider>
     </Router>
