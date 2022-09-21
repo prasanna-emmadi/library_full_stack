@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AllBooks from "./components/AllBooks";
 import Book from "./components/Book";
 import BookForm from "./components/BookForm";
@@ -13,24 +13,20 @@ import { useAuthContext } from "./contexts/authContext";
 function App() {
   const { loggedIn } = useAuthContext();
   return (
-    <Router>
-      <BookProvider>
-        <HeaderBar />
-        <Routes>
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/register" element={<RegisterForm />} />
-          {loggedIn ? (
-            <Route path="/editbook/:id" element={<BookForm />} />
-          ) : null}
-          {loggedIn ? (
-            <Route path="/createbook" element={<BookForm />} />
-          ) : null}
-          {loggedIn ? <Route path="/book/:id" element={<Book />} /> : null}
-          {loggedIn ? <Route path="/" element={<AllBooks />} /> : null}
-        </Routes>
-      </BookProvider>
-    </Router>
+    <BookProvider>
+      <HeaderBar />
+      <Routes>
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/register" element={<RegisterForm />} />
+        {loggedIn ? (
+          <Route path="/editbook/:id" element={<BookForm />} />
+        ) : null}
+        {loggedIn ? <Route path="/createbook" element={<BookForm />} /> : null}
+        {loggedIn ? <Route path="/book/:id" element={<Book />} /> : null}
+        <Route path="/" element={<AllBooks />} />
+      </Routes>
+    </BookProvider>
   );
 }
 

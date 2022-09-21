@@ -1,10 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {
-  refreshToken,
-  tryRegister,
-  tryLogin,
-  tryLogout,
-} from "./api/userApiRequests";
+import { useNavigate } from "react-router-dom";
+import { refreshToken, tryRegister, tryLogin } from "./api/userApiRequests";
 
 const AuthContext = createContext(undefined);
 const TOKEN_IDENTIFIER = "LIB_TOKEN";
@@ -12,6 +8,7 @@ const TOKEN_IDENTIFIER = "LIB_TOKEN";
 export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const localStorageToken = localStorage.getItem(TOKEN_IDENTIFIER);
@@ -34,6 +31,13 @@ export const AuthProvider = ({ children }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const logout = () => {
+    setLoggedIn(false);
+    setToken("");
+    navigate("/login");
+    localStorage.removeItem(TOKEN_IDENTIFIER);
+  };
 
   const register = async (username, password) => {
     try {
@@ -58,19 +62,6 @@ export const AuthProvider = ({ children }) => {
       console.log("error in login");
       console.error(e);
       throw e;
-    }
-  };
-  const logout = async () => {
-    const token = localStorage.getItem(TOKEN_IDENTIFIER);
-    if (token) {
-      try {
-        await tryLogout(token);
-        setLoggedIn(false);
-        setToken("");
-        localStorage.setItem(TOKEN_IDENTIFIER, "");
-      } catch (e) {
-        throw e;
-      }
     }
   };
 

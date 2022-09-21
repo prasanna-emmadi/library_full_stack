@@ -26,7 +26,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       await login(user.username, user.password);
-      navigate("/home");
+      navigate("/");
       setUser(emptyUser);
       setError(false);
     } catch (e) {

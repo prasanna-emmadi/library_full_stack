@@ -5,13 +5,11 @@ import { useAuthContext } from "../contexts/authContext";
 const HeaderBar = () => {
   const { loggedIn } = useAuthContext();
 
-  let navItems = NAV_ITEMS;
+  let navItems;
   if (loggedIn) {
-    const createBook = {
-      label: "CreateBook",
-      href: "/createbook",
-    };
-    navItems = [...NAV_ITEMS, createBook];
+    navItems = LOGGED_IN_NAV_ITEMS;
+  } else {
+    navItems = LOGGED_OUT_NAV_ITEMS;
   }
 
   return (
@@ -43,7 +41,22 @@ const HeaderBar = () => {
   );
 };
 
-const NAV_ITEMS = [
+const LOGGED_IN_NAV_ITEMS = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Logout",
+    href: "/logout",
+  },
+  {
+    label: "CreateBook",
+    href: "/createbook",
+  },
+];
+
+const LOGGED_OUT_NAV_ITEMS = [
   {
     label: "Home",
     href: "/",
@@ -55,10 +68,6 @@ const NAV_ITEMS = [
   {
     label: "Login",
     href: "/login",
-  },
-  {
-    label: "Logout",
-    href: "/logout",
   },
 ];
 

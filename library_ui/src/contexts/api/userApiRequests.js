@@ -30,14 +30,6 @@ export const tryLogin = async (username, password) => {
   }
 };
 
-export const tryLogout = async (token) => {
-  try {
-    return await axios.post(URL + "/logout", { token });
-  } catch (e) {
-    throw new Error("Error in Logout");
-  }
-};
-
 export const refreshToken = async (token) => {
   try {
     const authHeader = getAuthHeader(token);
