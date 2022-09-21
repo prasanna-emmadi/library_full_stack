@@ -1,12 +1,21 @@
-import { Box, Heading, List, ListItem, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import {
+  Box,
+  Flex,
+  HStack,
+  Heading,
+  List,
+  ListItem,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/authContext";
 import { useBookContext } from "../contexts/bookContext";
+import BookForm from "./BookForm";
 
-const Book = ({ book }) => {
+const Book = ({ book, index, onClick }) => {
   return (
-    <Box p={5} shadow="md" borderWidth="1px">
+    <Box p={5} shadow="md" borderWidth="1px" onClick={() => onClick(index)}>
       <Heading fontSize="xl">{book.title}</Heading>
       <Text mt={4}>{book.author}</Text>
     </Box>
@@ -16,16 +25,21 @@ const Book = ({ book }) => {
 const AllBooks = () => {
   const { loggedIn } = useAuthContext();
   const { books, getAllBooks } = useBookContext();
+  const [index, setIndex] = useState(-1);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (loggedIn && books.length === 0) {
       getAllBooks();
     }
-  }, [loggedIn, getAllBooks]);
+  }, [loggedIn, books, getAllBooks]);
 
   if (!loggedIn) {
     return <p>You are not loggedIn. Please login.</p>;
   }
+
+  const onClick = (index1) => {
+    setIndex(index1);
+  };
 
   console.log("here 1");
 
@@ -35,19 +49,21 @@ const AllBooks = () => {
 
   console.log("here 2");
 
+  const showBookForm = index !== -1;
+
   return (
-    <List>
-      {books.map((book, index) => {
-        const to = "/book/" + index;
-        return (
-          <ListItem key={index}>
-            <Link to={to}>
-              <Book book={book} />
-            </Link>
-          </ListItem>
-        );
-      })}
-    </List>
+    <HStack spacing="24px">
+      <List>
+        {books.map((book, index) => {
+          return (
+            <ListItem key={index}>
+              <Book book={book} index={index} onClick={onClick} />
+            </ListItem>
+          );
+        })}
+      </List>
+      {showBookForm ? <BookForm book={books[index]} /> : null}
+    </HStack>
   );
 };
 
