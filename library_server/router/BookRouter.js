@@ -4,7 +4,7 @@ import {
   editBook,
   createBook,
   deleteBook,
-} from "../controllers/bookController";
+} from "../controllers/bookController.js";
 import auth from "../middleware/passportMiddleware.js";
 
 const router = express.Router();

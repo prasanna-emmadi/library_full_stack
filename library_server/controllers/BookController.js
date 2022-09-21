@@ -1,7 +1,7 @@
 import BookModel from "../models/book.js";
-import UserModel from "./models/user.js";
+import UserModel from "../models/user.js";
 
-export const getAllBooks = async (req, res) => {
+export const getBooks = async (req, res) => {
   const username = req.user.username;
   try {
     const user = await UserModel.findOne({ username: username });
@@ -45,7 +45,7 @@ export const editBook = async (req, res) => {
   }
 };
 
-const createBook = async (req, res) => {
+export const createBook = async (req, res) => {
   try {
     const username = req.user.username;
     const user = await UserModel.findOne({ username: username });

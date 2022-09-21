@@ -2,8 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import UserRouter from "./router/UserRouter";
-import BookRouter from "./router/BookRouter";
+import UserRouter from "./router/UserRouter.js";
+import BookRouter from "./router/BookRouter.js";
 
 const PORT = 3001;
 

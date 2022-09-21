@@ -16,24 +16,25 @@ const InputComponent = ({ user, setUser, type, userKey }) => {
   return <Input onChange={onChange} type={type} />;
 };
 
-const LoginForm = () => {
-  const { login } = useAuthContext();
+const RegisterForm = () => {
+  const { register } = useAuthContext();
   const [error, setError] = useState(false);
   const [user, setUser] = useState(emptyUser);
   const navigate = useNavigate();
 
   const onSubmit = async () => {
     try {
-      await login(user.username, user.password);
+      await register(user.username, user.password);
       setUser(emptyUser);
       setError(false);
-      navigate("/");
+      navigate("/login");
     } catch (e) {
       setError(true);
     }
   };
 
-  const errorText = "Error in Login please username and password";
+  const errorText =
+    "Error in Register please try with different username and password";
 
   return (
     <form onSubmit={onSubmit}>
@@ -55,10 +56,10 @@ const LoginForm = () => {
           userKey="password"
         />
       </FormControl>
-      <Button type="submit">Login</Button>
+      <Button type="submit">Register</Button>
       {error ? <p>{errorText}</p> : null}
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
