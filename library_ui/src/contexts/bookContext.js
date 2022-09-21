@@ -36,6 +36,13 @@ export const BookProvider = ({ children }) => {
   const doEditBook = async (bookData) => {
     try {
       const response = await editBook(token, bookData);
+      const updatedBooks = books.map((book) => {
+        if (book._id !== bookData._id) {
+          return book;
+        }
+        return bookData;
+      });
+      setBooks(updatedBooks);
       // update local copy
       return response.data;
     } catch (e) {

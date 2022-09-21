@@ -1,13 +1,4 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Heading,
-  List,
-  ListItem,
-  Spacer,
-  Text,
-} from "@chakra-ui/react";
+import { Box, HStack, Heading, List, ListItem, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/authContext";
 import { useBookContext } from "../contexts/bookContext";
@@ -62,7 +53,7 @@ const AllBooks = () => {
           );
         })}
       </List>
-      {showBookForm ? <BookForm book={books[index]} /> : null}
+      {showBookForm ? <BookForm book={books[index]} index={index} /> : null}
     </HStack>
   );
 };

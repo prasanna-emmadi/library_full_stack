@@ -36,7 +36,7 @@ const BookForm = (props) => {
   const onSave = async () => {
     // create
     try {
-      await editBook(book);
+      await editBook(book, props.index);
       setError(false);
     } catch (e) {
       setError(true);
@@ -71,6 +71,7 @@ const BookForm = (props) => {
             book={book}
             setBook={setBook}
             bookKey="title"
+            value={book.title}
           />
         </FormControl>
         <FormControl isRequired>
@@ -80,6 +81,7 @@ const BookForm = (props) => {
             book={book}
             setBook={setBook}
             bookKey="description"
+            value={book.description}
           />
         </FormControl>
         <FormControl isRequired>
@@ -89,10 +91,11 @@ const BookForm = (props) => {
             book={book}
             setBook={setBook}
             bookKey="author"
+            value={book.author}
           />
         </FormControl>
         <ButtonGroup gap="4">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Save New</Button>
           <Button onClick={onSave}>Save</Button>
           <Button onClick={onDelete}>Delete</Button>
         </ButtonGroup>

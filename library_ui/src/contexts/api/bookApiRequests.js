@@ -42,10 +42,10 @@ export const editBook = async (token, bookData) => {
   }
 };
 
-export const deleteBook = async (token, id) => {
+export const deleteBook = async (token, title) => {
   try {
     const authHeader = getAuthHeader(token);
-    await axios.delete(URL + id, authHeader);
+    await axios.delete(URL + "/" + title, authHeader);
   } catch (e) {
     throw new Error("Error in book delete");
   }
