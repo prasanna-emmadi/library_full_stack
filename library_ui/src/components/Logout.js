@@ -4,17 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/authContext";
 
 const Logout = () => {
-  const [error, setError] = useState(false);
   const { logout } = useAuthContext();
   const navigate = useNavigate();
 
   const onClick = async () => {
     try {
       await logout();
-      setError(false);
       navigate("/");
     } catch (e) {
-      setError(true);
+      console.error("Error in logout")
     }
   };
   return <Button onClick={onClick}>Logout</Button>;
