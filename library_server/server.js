@@ -7,6 +7,8 @@ import BookRouter from "./router/BookRouter.js";
 import CredentialRouter from "./router/CredentialRouter.js";
 
 const PORT = 3001;
+const MONGO_URI =
+  process.env.MONGO_URI || "mongodb://localhost:27017/LibraryDB";
 
 dotenv.config();
 
@@ -26,7 +28,7 @@ app.use((req, res, next) => {
 
 const connectMongoose = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/LibraryDB");
+    await mongoose.connect(MONGO_URI);
     console.log("connected to mongoose");
   } catch (e) {
     console.error(e);
