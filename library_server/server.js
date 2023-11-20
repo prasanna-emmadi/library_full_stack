@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 const connectMongoose = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/EasyBuyDB");
+    await mongoose.connect("mongodb://localhost:27017/LibraryDB");
     console.log("connected to mongoose");
   } catch (e) {
     console.error(e);
